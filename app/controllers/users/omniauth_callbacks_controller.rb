@@ -1,10 +1,23 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  skip_before_action :authenticate_user!
+
+
   # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
+  # devise :omniauthable, omniauth_providers: [:bike_index]
 
   # You should also create an action method in this controller like this:
-  # def twitter
-  # end
+  def bike_index
+    # raise request.env["omniauth.auth"].to_yaml
+    user = User.from_omniauth(request.env["omniauth.auth"])
+
+    if user.persisted?
+      sign_in_and_redirect user
+    else
+      session["devise.bike_index_data"] = user.attributes
+      redirect_to new_user_registration_url
+    end
+  end
 
   # More info at:
   # https://github.com/plataformatec/devise#omniauth
