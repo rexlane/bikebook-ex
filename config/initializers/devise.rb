@@ -6,8 +6,8 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = 'e67fef5640b3ddb745d15322f4d386fe3cd1d4a51414f3a82cc5f44b91ecf869658d9b673cc0f4eda5d936c76f54a7ec234177b62e482965480656d1fa61069a'
-
+  # config.secret_key = 'e67fef5640b3ddb745d15322f4d386fe3cd1d4a51414f3a82cc5f44b91ecf869658d9b673cc0f4eda5d936c76f54a7ec234177b62e482965480656d1fa61069a'
+  config.secret_key = ENV['DEVISE_SECRET_KEY']
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -235,7 +235,8 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :bike_index, 'db08ed248b75678858169e118808c522541666ae7c4e0455dabe84e95b934402', 'ac16b91c07e85db03102b9cc8f675b575050747483bd18892d194a79da1f6b5c', scope: 'read_user'
+  # config.omniauth :bike_index, 'db08ed248b75678858169e118808c522541666ae7c4e0455dabe84e95b934402', 'ac16b91c07e85db03102b9cc8f675b575050747483bd18892d194a79da1f6b5c', scope: 'read_user'
+  config.omniauth :bike_index, ENV['BIKEINDEX_APP_ID'], ENV['BIKEINDEX_APP_SECRET'], scope: 'read_user'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
